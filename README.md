@@ -1,4 +1,5 @@
 ## HospitalManagementSystem
+### Due Date: April 30, 2015
 
 ### Database Design
 - Create a list of data items that will be stored in your project. For example, in
@@ -22,3 +23,16 @@ the type of the relationships)
 - Implement your project using a DBMS (Oracle, MS-SQL, MySQL, MS-Access,
 ...)
 *** at least 10 tables and 10 SQL queries with some Type 1 and Type 2 queries *****
+
+
+### Evaluation
+- Gathering data items (10)
+- Defining entities, the attributes of the entities, the restrictions on the attributes (15)
+- Relationships (5)
+- ER model (5)
+- Normalization (10)
+- Queries (15)
+- Implementation (15)
+- Report (10)
+- Presentation (15) (is necessary)
+
