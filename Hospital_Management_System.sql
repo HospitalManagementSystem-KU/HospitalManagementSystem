@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2015 at 07:45 AM
+-- Generation Time: Apr 22, 2015 at 10:04 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -27,12 +27,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Address` (
-  `addr_id` int(5) NOT NULL,
+  `SSN` int(11) NOT NULL,
   `street` varchar(40) NOT NULL,
   `city` varchar(10) NOT NULL,
   `state` varchar(10) NOT NULL,
   `zip code` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Address`
+--
+
+INSERT INTO `Address` (`SSN`, `street`, `city`, `state`, `zip code`) VALUES
+(123456789, 'saphankhwai', 'bkk', 'thailand', 10400),
+(987654321, 'idontknow', 'canada', 'us', 10500);
 
 -- --------------------------------------------------------
 
@@ -43,10 +51,10 @@ CREATE TABLE IF NOT EXISTS `Address` (
 CREATE TABLE IF NOT EXISTS `Appointment` (
   `app_id` int(5) NOT NULL,
   `patient_id` int(5) NOT NULL,
+  `dept_id` int(5) NOT NULL,
+  `physician_id` int(11) NOT NULL,
   `start` datetime(5) DEFAULT NULL,
-  `end` datetime(5) DEFAULT NULL,
-  `room_id` int(5) NOT NULL,
-  `dept_id` int(5) NOT NULL
+  `end` datetime(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -56,10 +64,20 @@ CREATE TABLE IF NOT EXISTS `Appointment` (
 --
 
 CREATE TABLE IF NOT EXISTS `Department` (
-  `dept_ID` int(5) NOT NULL,
+  `dept_id` int(5) NOT NULL,
   `dept_name` varchar(20) NOT NULL,
-  `dept_description` varchar(20) NOT NULL,
   `dept_head` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Doctor`
+--
+
+CREATE TABLE IF NOT EXISTS `Doctor` (
+  `physician_id` int(11) NOT NULL,
+  `specialist` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -75,15 +93,16 @@ CREATE TABLE IF NOT EXISTS `Employee` (
   `SSN` int(9) DEFAULT NULL,
   `dept_id` int(5) DEFAULT NULL,
   `job_id` int(5) DEFAULT NULL,
-  `salary` int(10) DEFAULT NULL
+  `salary` int(10) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Employee`
 --
 
-INSERT INTO `Employee` (`emp_id`, `emp_firstname`, `emp_lastname`, `SSN`, `dept_id`, `job_id`, `salary`) VALUES
-(1234, 'Nichamon', 'Han', NULL, NULL, NULL, NULL);
+INSERT INTO `Employee` (`emp_id`, `emp_firstname`, `emp_lastname`, `SSN`, `dept_id`, `job_id`, `salary`, `type`) VALUES
+(1234, 'Nichamon', 'Han', 123456789, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -94,17 +113,6 @@ INSERT INTO `Employee` (`emp_id`, `emp_firstname`, `emp_lastname`, `SSN`, `dept_
 CREATE TABLE IF NOT EXISTS `Insurance` (
   `insur_id` int(5) NOT NULL,
   `company_name` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Job`
---
-
-CREATE TABLE IF NOT EXISTS `Job` (
-  `job_id` int(5) NOT NULL,
-  `job_title` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -123,6 +131,17 @@ CREATE TABLE IF NOT EXISTS `Medication` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Nurse`
+--
+
+CREATE TABLE IF NOT EXISTS `Nurse` (
+  `emp_id` int(11) NOT NULL,
+  `ward` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Patient`
 --
 
@@ -132,7 +151,29 @@ CREATE TABLE IF NOT EXISTS `Patient` (
   `patient_lastname` varchar(20) NOT NULL,
   `SSN` int(9) NOT NULL,
   `insurance_id` int(10) NOT NULL,
-  `phone` int(10) NOT NULL
+  `phone` int(10) NOT NULL,
+  `type` int(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Patient`
+--
+
+INSERT INTO `Patient` (`patient_id`, `patient_firstname`, `patient_lastname`, `SSN`, `insurance_id`, `phone`, `type`) VALUES
+(1, 'Spa', 'Vasupol', 987654321, 0, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Payment`
+--
+
+CREATE TABLE IF NOT EXISTS `Payment` (
+  `pay_id` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  `pres_id` int(11) NOT NULL,
+  `stay_id` int(11) NOT NULL,
+  `total cost` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -145,7 +186,8 @@ CREATE TABLE IF NOT EXISTS `Prescription` (
   `pres_id` int(5) NOT NULL,
   `patient_id` int(5) NOT NULL,
   `med_id` int(5) NOT NULL,
-  `is_appoint` tinyint(1) NOT NULL
+  `disease` int(11) NOT NULL,
+  `physician_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -172,8 +214,7 @@ CREATE TABLE IF NOT EXISTS `Stay` (
   `patient_id` int(5) NOT NULL,
   `room_id` int(5) NOT NULL,
   `start` datetime NOT NULL,
-  `end` datetime NOT NULL,
-  `cost` int(10) NOT NULL
+  `end` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -184,19 +225,13 @@ CREATE TABLE IF NOT EXISTS `Stay` (
 -- Indexes for table `Department`
 --
 ALTER TABLE `Department`
- ADD PRIMARY KEY (`dept_ID`);
+ ADD PRIMARY KEY (`dept_id`);
 
 --
 -- Indexes for table `Employee`
 --
 ALTER TABLE `Employee`
  ADD PRIMARY KEY (`emp_id`);
-
---
--- Indexes for table `Job`
---
-ALTER TABLE `Job`
- ADD PRIMARY KEY (`job_id`);
 
 --
 -- Indexes for table `Patient`
