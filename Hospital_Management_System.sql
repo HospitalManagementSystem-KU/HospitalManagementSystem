@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 22, 2015 at 10:04 AM
+-- Generation Time: Apr 22, 2015 at 10:24 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -65,9 +65,44 @@ CREATE TABLE IF NOT EXISTS `Appointment` (
 
 CREATE TABLE IF NOT EXISTS `Department` (
   `dept_id` int(5) NOT NULL,
-  `dept_name` varchar(20) NOT NULL,
-  `dept_head` varchar(20) NOT NULL
+  `dept_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Department`
+--
+
+INSERT INTO `Department` (`dept_id`, `dept_name`) VALUES
+(1, 'Quality Pregnancy Center'),
+(2, 'Wellness Center'),
+(3, 'Heart Center'),
+(4, 'Fertility Center'),
+(5, 'Mental Health Clinic'),
+(6, 'Comprehensive Neurology Center'),
+(7, 'Gynecologic Cancer Treatment Center'),
+(8, 'Gastrointestinal System and Liver Clinic'),
+(9, 'Gynecologic Laparoscopic Surgery Center'),
+(10, 'Urinary Tract Center'),
+(11, 'Breast Cancer Center'),
+(12, 'Diagnostic Digital Imaging Center'),
+(13, 'Skin and Cosmetic Surgery Center'),
+(14, 'Respiratory Center'),
+(15, 'Diabetes Center'),
+(16, 'Minimally Invasive Surgery Center'),
+(17, 'Dental Center'),
+(18, 'Children & Teen Center'),
+(19, 'Orthopaedic Center'),
+(20, 'Operations Department'),
+(21, 'Laboratory Department'),
+(22, 'Nutrition Department'),
+(23, 'Hemodialysis Department'),
+(24, 'Emergency Department'),
+(25, 'Physical Therapy Department'),
+(26, 'ICU and CCU Department'),
+(27, 'Eye, Ear, Nose and Throat Clinic'),
+(28, 'Stroke and Cardiovascular Emergency Center'),
+(29, 'Advanced Laparoscope Surgery Center'),
+(30, 'General Medicine Clinic');
 
 -- --------------------------------------------------------
 
