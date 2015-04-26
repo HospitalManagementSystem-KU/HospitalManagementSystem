@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 22, 2015 at 10:24 AM
+-- Generation Time: Apr 26, 2015 at 06:54 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -107,17 +107,6 @@ INSERT INTO `Department` (`dept_id`, `dept_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Doctor`
---
-
-CREATE TABLE IF NOT EXISTS `Doctor` (
-  `physician_id` int(11) NOT NULL,
-  `specialist` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `Employee`
 --
 
@@ -161,17 +150,6 @@ CREATE TABLE IF NOT EXISTS `Medication` (
   `med_name` varchar(20) NOT NULL,
   `med_brand` varchar(20) NOT NULL,
   `med_description` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Nurse`
---
-
-CREATE TABLE IF NOT EXISTS `Nurse` (
-  `emp_id` int(11) NOT NULL,
-  `ward` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
